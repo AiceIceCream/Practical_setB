@@ -8,7 +8,7 @@ use Illuminate\Http\Response;
 
 Class TeacherController extends Controller {
     use ApiResponser;
-    protected $primarykey = 'teacherid';
+    protected $primaryKey = 'teacherid';
     private $request;
 
     public function __construct(Request $request)
@@ -30,7 +30,7 @@ Class TeacherController extends Controller {
             'firstname' => 'required|max:50',
             'middlename' => 'required|max:50',
             'bday' => 'required|max:5000',
-            'age' => 'required|int:gt:18 years'
+            'age' => 'required|gte:18'
         ];
 
         $this->validate($request,$rules);
@@ -41,7 +41,7 @@ Class TeacherController extends Controller {
     
     public function update(Request $request,$id)            //UPDATE USER
     {
-        $teachers = User::where("teacherid", $id)->firstOrFail();
+        $user = User::where("teacherid", $id)->firstOrFail();
 
         $rules = [
             $this->validate($request, [
@@ -50,7 +50,7 @@ Class TeacherController extends Controller {
                 'firstname' => 'required|alpha:max:50',
                 'middlename' => 'required|alpha:max:50',
                 'bday' => 'required|max:5000',
-                'age' => 'required|int:gt:18 years'
+                'age' => 'required|gte:18'
             ])  
         ];
         $this->validate($request, $rules);
